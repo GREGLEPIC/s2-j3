@@ -23,14 +23,6 @@ end
 @client = client
 @client2 = client2
 
-def login_twitter 
-  if @client != nil 
-    return client
-  else
-    return "False"
-  end
-end
-
 
 def pick_send
   journaliste_sample = @journaliste.sample(5)
@@ -46,12 +38,11 @@ def like_bonjour_monde
 end
 
 def follow
-  @client.search('#bonjour_monde', result_type: "recent").take(2).each do |tweet|
-  @client.follow(tweet.user.id)
+  @client.search('#bonjour_monde', result_type: "recent").take(25).each do |tweet|
+  @client.follow(tweet.user.screen_name)
   end
 end
 
-#follow
 
 def stream
   @client2.filter(track: "#bonjour_monde") do |tweet|
@@ -61,4 +52,10 @@ def stream
   end
 end
 
-stream
+def login_twitter 
+  if @client != nil 
+    return client
+  else
+    return "False"
+  end
+end
